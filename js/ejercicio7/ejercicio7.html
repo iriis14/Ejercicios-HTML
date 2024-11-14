@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Potencia</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 330px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Calculadora de Potencia</h2>
+
+        <!-- Campos de entrada para la base y el exponente -->
+        <label for="base">Base:</label>
+        <input type="number" id="base" placeholder="Introduce la base">
+
+        <label for="exponente">Exponente:</label>
+        <input type="number" id="exponente" placeholder="Introduce el exponente">
+
+        <!-- Botón para calcular -->
+        <button onclick="calcularPotencia()">Calcular Potencia</button>
+
+        <!-- Contenedor para mostrar el resultado -->
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        // Función para calcular la potencia
+        function calcularPotencia() {
+            // Obtener los valores de los campos de entrada
+            const base = document.getElementById("base").value;
+            const exponente = document.getElementById("exponente").value;
+
+            // Validar que se introduzcan valores válidos
+            if (base === "" || exponente === "") {
+                document.getElementById("resultado").innerText = "Por favor, introduce ambos números.";
+                return;
+            }
+
+            var resultado = 1;
+
+            // Calcular la potencia
+            for(var i = 0; i < exponente; i++) {
+                resultado = resultado * base;
+            }
+
+            // Mostrar el resultado en el contenedor
+            document.getElementById("resultado").innerText = `El resultado de ${base} elevado a ${exponente} es: ${resultado}`;
+        }
+    </script>
+</body>
+</html>

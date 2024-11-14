@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Task</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h4>Create new task</h4>
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" placeholder="Enter title">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="location">Location</label>
+                    <select class="form-control" id="location">
+                        <option selected>Select location</option>
+                        <option>Location 1</option>
+                        <option>Location 2</option>
+                        <option>Location 3</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="type">Type</label>
+                    <select class="form-control" id="type">
+                        <option>Incident</option>
+                        <option>Request</option>
+                        <option>Change</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="criticality">Criticality</label>
+                    <select class="form-control" id="criticality">
+                        <option>Minor</option>
+                        <option>Major</option>
+                        <option>Critical</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Environment</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="prod">
+                    <label class="form-check-label" for="prod">Prod</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="preprod">
+                    <label class="form-check-label" for="preprod">Preprod</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="demo">
+                    <label class="form-check-label" for="demo">Demo</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" rows="3" placeholder="Enter description"></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="start-date">Start date</label>
+                    <input type="date" class="form-control" id="start-date">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="duration">Duration (in hours)</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary" type="button">-</button>
+                        </div>
+                        <input type="number" class="form-control" value="1.00" step="0.1">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="status">Status</label>
+                    <select class="form-control" id="status">
+                        <option>Planned</option>
+                        <option>In Progress</option>
+                        <option>Completed</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="percent-complete">Percent complete</label>
+                    <select class="form-control" id="percent-complete">
+                        <option>0%</option>
+                        <option>25%</option>
+                        <option>50%</option>
+                        <option>75%</option>
+                        <option>100%</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="send-email">
+                <label class="form-check-label" for="send-email">Check here if you want to send an email</label>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <button type="button" class="btn btn-secondary">Cancel</button>
+                </div>
+                <div class="form-group col-md-6 text-right">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+</body>
+</html>

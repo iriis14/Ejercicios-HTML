@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambio de Color</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .capa {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 200px;
+            height: 100px;
+            background-color: rgb(233, 233, 233);
+            padding: 10px;
+            border: 1px solid #333;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Formulario de Colores</h1>
+
+    <!-- Capa en la esquina superior derecha -->
+    <div class="capa" id="capa"></div>
+
+    <!-- Formulario para seleccionar el cambio de color -->
+    <form>
+        <label>
+            <input type="radio" name="opcion" value="doc" checked>
+            Cambiar fondo del documento
+        </label>
+        <label>
+            <input type="radio" name="opcion" value="capa">
+            Cambiar fondo de la capa
+        </label>
+    </form>
+
+    <br>
+
+    <!-- Botones de colores -->
+    <button onclick="cambiarColor('red')">Rojo</button>
+    <button onclick="cambiarColor('green')">Verde</button>
+    <button onclick="cambiarColor('blue')">Azul</button>
+    <button onclick="cambiarColor('yellow')">Amarillo</button>
+    <button onclick="cambiarColor('purple')">Morado</button>
+
+    <script>
+        function cambiarColor(color) {
+            // Obtener el valor del radio seleccionado
+            const opcion = document.querySelector('input[name="opcion"]:checked').value;
+
+            // Cambiar color del documento o de la capa
+            if (opcion === 'doc') {
+                document.body.style.backgroundColor = color;
+            } else if (opcion === 'capa') {
+                document.getElementById('capa').style.backgroundColor = color;
+            }
+        }
+    </script>
+
+</body>
+</html>

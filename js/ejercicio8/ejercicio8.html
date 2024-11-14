@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprobar DNI</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 330px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Comprobación de DNI</h2>
+
+        <!-- Campo para ingresar el DNI -->
+        <label for="DNI">DNI:</label>
+        <input type="text" id="DNI" placeholder="Introduce el DNI">
+
+        <!-- Botón para comprobar el DNI -->
+        <button onclick="comprobarDNI()">Comprobar DNI</button>
+
+        <!-- Resultado de la comprobación -->
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        function comprobarDNI() {
+            // Obtener el DNI introducido
+            const dni = document.getElementById("DNI").value.trim();
+
+            // Validar que el DNI tenga 9 caracteres y el último sea una letra
+            if (dni.length !== 9 || !isNaN(dni.charAt(8))) {
+                document.getElementById("resultado").innerText = "Formato de DNI incorrecto";
+                return;
+            }
+
+            // Obtener la parte numérica y la letra por separado
+            const numero = parseInt(dni.slice(0, -1), 10);
+            const letraIngresada = dni.charAt(8).toUpperCase();
+
+            // Código de letras para los DNI
+            const codigo = "TRWAGMYFPDXBNJZSQVHLCKE";
+
+            // Calcular la letra correspondiente
+            const letraCalculada = codigo.charAt(numero % 23);
+
+            // Comparar la letra ingresada con la calculada
+            const resultado = (letraIngresada === letraCalculada)
+                ? "Comprobación correcta"
+                : "Comprobación incorrecta";
+
+            // Mostrar el resultado
+            document.getElementById("resultado").innerText = resultado;
+        }
+    </script>
+</body>
+</html>

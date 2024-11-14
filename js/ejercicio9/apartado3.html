@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Días Vivo</title>
+    <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        background-color: #fff;
+        padding: 20px 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 330px;
+        width: 100%;
+    }
+
+    h2 {
+        color: #333;
+        text-align: center;
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    input,
+    button {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    input {
+        border: 1px solid #ccc;
+    }
+
+    button {
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    p {
+        text-align: center;
+        font-size: 16px;
+        color: #333;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Contador de Días Viviendo</h2>
+
+        <!-- Campos de entrada -->
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Introduce tu nombre">
+
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad" placeholder="Introduce tu edad">
+
+        <button onclick="calcularDias()">Calcular Días Vividos</button>
+
+        <!-- Resultado -->
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        function calcularDias() {
+            // Obtén los valores de nombre y edad
+            const nombre = document.getElementById("nombre").value;
+            const edad = document.getElementById("edad").value;
+
+            // Verifica que ambos campos estén llenos
+            if (!nombre || !edad) {
+                document.getElementById("resultado").textContent = "Por favor, ingresa tu nombre y edad.";
+                return;
+            }
+
+            // Calcula el número aproximado de días vividos (365 días por año)
+            const diasVividos = edad * 365;
+
+            // Muestra el resultado
+            document.getElementById("resultado").textContent = `${nombre}, has vivido aproximadamente ${diasVividos} días.`;
+        }
+    </script>
+</body>
+</html>
