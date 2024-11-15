@@ -34,12 +34,12 @@ function drawKeyboard() {
 }
 
 /*
-Función para confirmar si la opción és correcta,
-si lo és, sigue jugando, pero
+Función para confirmar si la opción és correcta.
+Si lo és, sigue jugando, pero
 si la palabra está entera ha ganado,
 en caso contrario se le suma un error,
 si no ha llegado al máximo de errores sigue jugando
-en caso contrario pierde
+en caso contrario pierde.
 */
 function handleGuess(letter) {
     if (selectedWord.includes(letter)) {
