@@ -1,14 +1,17 @@
-// Instanciamos las variables
-const words = ["html", "javascript", "css", "python", "java"];
+
+// Variables principales
+const words = ["html", "javascript", "css", "python", "java", "frontend", "backend"];
 const selectedWord = words[Math.floor(Math.random() * words.length)].toUpperCase();
 const maxErrors = 8;
-let guessed = [];
+let guessed = []; // Letras correctas
+let wrongLetters = []; // Letras incorrectas
 let errors = 0;
-
+// Variables del html
 const wordContainer = document.getElementById("word");
 const message = document.getElementById("message");
 const keyboard = document.getElementById("keyboard");
-const parts = ["first", "head", "body", "leg1", "leg2", "arm1", "arm2", "final"];
+const parts = ["first", "head", "body", "arm1", "arm2", "leg1", "leg2", "final"];
+const wrongLettersContainer = document.getElementById("wrongLetters");
 
 // Función para dibujar la palabra
 function drawWord() {
@@ -28,20 +31,17 @@ function drawKeyboard() {
         const button = document.createElement("button");
         button.textContent = String.fromCharCode(i);
         button.addEventListener("click", () => handleGuess(button.textContent));
-        button.disabled = guessed.includes(button.textContent);
+        button.disabled = guessed.includes(button.textContent) || wrongLetters.includes(button.textContent);
         keyboard.appendChild(button);
     }
 }
 
-/*
-Función para confirmar si la opción és correcta.
-Si lo és, sigue jugando, pero
-si la palabra está entera ha ganado,
-en caso contrario se le suma un error,
-si no ha llegado al máximo de errores sigue jugando
-en caso contrario pierde.
-*/
+// Manejo de las letras presionadas
 function handleGuess(letter) {
+    // Deshabilitar el botón de la letra que se pulsó
+    const button = Array.from(keyboard.getElementsByTagName("button")).find(btn => btn.textContent === letter);
+    button.disabled = true;
+
     if (selectedWord.includes(letter)) {
         guessed.push(letter);
         if (selectedWord.split("").every(l => guessed.includes(l))) {
@@ -49,6 +49,10 @@ function handleGuess(letter) {
             keyboard.innerHTML = "";
         }
     } else {
+        if (!wrongLetters.includes(letter)) {
+            wrongLetters.push(letter); // Agregar letra incorrecta
+            wrongLettersContainer.textContent = wrongLetters.join(", "); // Mostrar letras incorrectas
+        }
         if (errors < maxErrors) {
             const part = document.getElementById(parts[errors]);
             part.style.display = "block";
@@ -63,5 +67,6 @@ function handleGuess(letter) {
     drawWord();
 }
 
+// Dibujar la interfaz inicial
 drawWord();
 drawKeyboard();

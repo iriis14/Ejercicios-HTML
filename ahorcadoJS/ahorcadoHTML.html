@@ -10,23 +10,33 @@
     <!--Título-->
     <h1>Juego del Ahorcado</h1>
 
-    <!--Imagenes-->
-    <div class="ahorcado">
-        <img id="first" src="inicio.png" alt="Inicio">
-        <img id="head" src="cabeza.png" alt="Cabeza">
-        <img id="body" src="cuerpo.png" alt="Cuerpo">
-        <img id="leg1" src="pierna1.png" alt="Pierna Izquierda">
-        <img id="leg2" src="pierna2.png" alt="Pierna Derecha">
-        <img id="arm1" src="brazo1.png" alt="Brazo Izquierdo">
-        <img id="arm2" src="brazo2.png" alt="Brazo Derecho">
-        <img id="final" src="final.png" alt="Raya Final">
+    <!--Contenedor del juego-->
+    <div class="game-container">
+        <!--Imagenes del ahorcado-->
+        <div class="hangman">
+            <img id="first" src="inicio.png" alt="Inicio">
+            <img id="head" src="cabeza.png" alt="Cabeza">
+            <img id="body" src="cuerpo.png" alt="Cuerpo">
+            <img id="arm1" src="brazo1.png" alt="Brazo Izquierdo">
+            <img id="arm2" src="brazo2.png" alt="Brazo Derecho">
+            <img id="leg1" src="pierna1.png" alt="Pierna Izquierda">
+            <img id="leg2" src="pierna2.png" alt="Pierna Derecha">
+            <img id="final" src="final.png" alt="Raya Final">
+        </div>
+
+        <!--Contenedor de letras incorrectas-->
+        <div class="wrong-letters-container">
+            <h3>Letras Incorrectas:</h3>
+            <div id="wrongLetters"></div>
+        </div>
     </div>
 
     <!--Divs donde irán los elementos-->
     <div class="word" id="word"></div>
     <div class="message" id="message"></div>
     <div class="keyboard" id="keyboard"></div>
-
+    
+    <!--Archivo JavaScript-->
     <script src="ahorcadoJS.js"></script>
 </body>
 </html>

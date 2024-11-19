@@ -12,6 +12,9 @@
             padding: 0;
             background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
             color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         h1 {
@@ -21,8 +24,14 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
+        .game-container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            margin-top: 5px;
+        }
+
         .hangman {
-            margin: 20px auto;
             width: 440px;
             height: 380px;
             position: relative;
@@ -30,6 +39,7 @@
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             overflow: hidden;
+            margin-left: 200px;
         }
 
         .hangman img {
@@ -43,12 +53,34 @@
             transition: opacity 0.5s ease;
         }
 
+        .wrong-letters-container {
+            margin-left: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            min-width: 120px;
+            text-align: left;
+        }
+
+        .wrong-letters-container h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+
+        .wrong-letters-container div {
+            font-size: 20px;
+            color: #ff6f61;
+            font-weight: bold;
+        }
+
         .word {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
             height: 50px;
+            margin-top: 20px;
         }
 
         .letter {
@@ -66,9 +98,8 @@
             box-sizing: border-box;
         }
 
-
         .message {
-            margin: 20px 0;
+            margin: 0px 0;
             font-size: 25px;
             color: #fff;
             font-weight: bold;
@@ -113,16 +144,25 @@
     <!--Título-->
     <h1>Juego del Ahorcado</h1>
 
-    <!--Imagenes-->
-    <div class="hangman">
-        <img id="first" src="inicio.png" alt="Inicio">
-        <img id="head" src="cabeza.png" alt="Cabeza">
-        <img id="body" src="cuerpo.png" alt="Cuerpo">
-        <img id="arm1" src="brazo1.png" alt="Brazo Izquierdo">
-        <img id="arm2" src="brazo2.png" alt="Brazo Derecho">
-        <img id="leg1" src="pierna1.png" alt="Pierna Izquierda">
-        <img id="leg2" src="pierna2.png" alt="Pierna Derecha">
-        <img id="final" src="final.png" alt="Raya Final">
+    <!--Contenedor del juego-->
+    <div class="game-container">
+        <!--Imagenes del ahorcado-->
+        <div class="hangman">
+            <img id="first" src="inicio.png" alt="Inicio">
+            <img id="head" src="cabeza.png" alt="Cabeza">
+            <img id="body" src="cuerpo.png" alt="Cuerpo">
+            <img id="arm1" src="brazo1.png" alt="Brazo Izquierdo">
+            <img id="arm2" src="brazo2.png" alt="Brazo Derecho">
+            <img id="leg1" src="pierna1.png" alt="Pierna Izquierda">
+            <img id="leg2" src="pierna2.png" alt="Pierna Derecha">
+            <img id="final" src="final.png" alt="Raya Final">
+        </div>
+
+        <!--Contenedor de letras incorrectas-->
+        <div class="wrong-letters-container">
+            <h3>Letras Incorrectas:</h3>
+            <div id="wrongLetters"></div>
+        </div>
     </div>
 
     <!--Divs donde irán los elementos-->
@@ -131,17 +171,19 @@
     <div class="keyboard" id="keyboard"></div>
 
     <script>
-        // Instanciamos las variables
+        // Variables principales
         const words = ["html", "javascript", "css", "python", "java", "frontend", "backend"];
         const selectedWord = words[Math.floor(Math.random() * words.length)].toUpperCase();
         const maxErrors = 8;
-        let guessed = [];
+        let guessed = []; // Letras correctas
+        let wrongLetters = []; // Letras incorrectas
         let errors = 0;
-
+        // Variables del html
         const wordContainer = document.getElementById("word");
         const message = document.getElementById("message");
         const keyboard = document.getElementById("keyboard");
         const parts = ["first", "head", "body", "arm1", "arm2", "leg1", "leg2", "final"];
+        const wrongLettersContainer = document.getElementById("wrongLetters");
 
         // Función para dibujar la palabra
         function drawWord() {
@@ -161,20 +203,17 @@
                 const button = document.createElement("button");
                 button.textContent = String.fromCharCode(i);
                 button.addEventListener("click", () => handleGuess(button.textContent));
-                button.disabled = guessed.includes(button.textContent);
+                button.disabled = guessed.includes(button.textContent) || wrongLetters.includes(button.textContent);
                 keyboard.appendChild(button);
             }
         }
 
-        /*
-        Función para confirmar si la opción és correcta.
-        Si lo és, sigue jugando, pero
-        si la palabra está entera ha ganado,
-        en caso contrario se le suma un error,
-        si no ha llegado al máximo de errores sigue jugando
-        en caso contrario pierde.
-        */
+        // Manejo de las letras presionadas
         function handleGuess(letter) {
+            // Deshabilitar el botón de la letra que se pulsó
+            const button = Array.from(keyboard.getElementsByTagName("button")).find(btn => btn.textContent === letter);
+            button.disabled = true;
+
             if (selectedWord.includes(letter)) {
                 guessed.push(letter);
                 if (selectedWord.split("").every(l => guessed.includes(l))) {
@@ -182,6 +221,10 @@
                     keyboard.innerHTML = "";
                 }
             } else {
+                if (!wrongLetters.includes(letter)) {
+                    wrongLetters.push(letter); // Agregar letra incorrecta
+                    wrongLettersContainer.textContent = wrongLetters.join(", "); // Mostrar letras incorrectas
+                }
                 if (errors < maxErrors) {
                     const part = document.getElementById(parts[errors]);
                     part.style.display = "block";
@@ -196,6 +239,7 @@
             drawWord();
         }
 
+        // Dibujar la interfaz inicial
         drawWord();
         drawKeyboard();
     </script>
